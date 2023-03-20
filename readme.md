@@ -1,4 +1,4 @@
-# No Brainer Chat Widget
+# Simplest Chat Widget
 
 [![npm version](https://badge.fury.io/js/no-brainer-chat-widget.svg)](https://badge.fury.io/js/no-brainer-chat-widget)
 
@@ -14,7 +14,7 @@ No Brainer Chat Widget is a lightweight and customizable chat widget npm library
 
 ```html
 <script type="module">
-	import ChatWidget from "simple-chat-widget";
+	import ChatWidget from "simplest-chat-widget";
 	ChatWidget.create();
 </script>
 ```
@@ -22,11 +22,11 @@ No Brainer Chat Widget is a lightweight and customizable chat widget npm library
 ### NPM
 
 ```bash
-npm install simple-chat-widget
+npm install simplest-chat-widget
 ```
 
 ```javascript
-import ChatWidget from "simple-chat-widget";
+import ChatWidget from "simplest-chat-widget";
 ChatWidget.create();
 ```
 

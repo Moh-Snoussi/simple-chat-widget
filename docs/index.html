@@ -59,13 +59,14 @@
 <body>
 
 <div class="container">
-	<h1>No Brainer Chat Widget </h1>
-	<h2>A simple chat widget</h2>
+	<h1>Simplest Chat Widget </h1>
+	<h2>
+		Easy to use, lightweight, customizable chat widget.
+	</h2>
 	<div class="github">
 		<a href="https://github.com/Moh-Snoussi/simple-chat-widget">
 			<img src="https://img.shields.io/github/stars/Moh-Snoussi/simple-chat-widget?style=social" alt="GitHub stars">
 		</a>
-
 	</div>
 </div>
 
@@ -102,7 +103,8 @@
         background-color: #241f2a;
         font-size: 14px;
       ">
-	import ChatWidget from "./../dist/main.mjs";
+
+	import ChatWidget from "https://unpkg.com/simplest-chat-widget";
 
 	window.chatWidget = ChatWidget.create( {
 		answer: ( message ) => new Promise( ( resolve ) =>
