@@ -11,7 +11,6 @@
 		background-color: #473f56;
 		color: #fff;
 		font-family: system-ui, sans-serif;
-		font-size: 18px;
 		display: flex;
 		flex-direction: column;
 		align-items: end;
@@ -80,7 +79,10 @@
 		</button>
 	</div>
 	<div class="option">
-		<input type="text" class="options-configurator__input" placeholder="Send to user" id="send-to-user">
+<!--		on enter sendToUser-->
+
+		<input onkeydown="((event) => { if (event.keyCode === 13) chatWidget.sendToUser( document.getElementById('send-to-user').value)})(arguments[0]);"
+				type="text" class="options-configurator__input" placeholder="Send to user" id="send-to-user">
 		<button class="options-configurator__button"
 				onclick="chatWidget.sendToUser( document.getElementById('send-to-user').value ).show()">Send
 		</button>
@@ -89,8 +91,6 @@
 
 	</div>
 </div>
-
-<link rel="stylesheet" href="https://unpkg.com/typeit-gpt/src/index.css"/>
 
 <script type="module" style="
         display: block;

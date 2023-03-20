@@ -7,6 +7,7 @@ export interface MessageType {
     message: string;
     answerEl: HTMLElement;
     history: Array<historyItem>;
+    setLoading: (isLoading: boolean) => void;
 }
 export type ChatWidgetOptions = {
     answer: (message: MessageType) => Promise<string | null>;
@@ -56,6 +57,7 @@ export default class ChatWidget {
     sendToUser(message: string): ChatWidget;
     show(): ChatWidget;
     hide(): ChatWidget;
+    setLoading(isLoading: boolean): void;
     send(event: Event): void;
     private createChatWidget;
     private collectElements;

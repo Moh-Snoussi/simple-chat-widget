@@ -10,6 +10,7 @@ export interface MessageType {
     message: string;
     answerEl: HTMLElement;
     history: Array<historyItem>;
+    setLoading: (isLoading: boolean) => void
 }
 
 export type ChatWidgetOptions = {
@@ -171,6 +172,10 @@ export default class ChatWidget {
         return this;
     }
 
+    setLoading(isLoading: boolean) {
+        this.loader.classList[ ( isLoading ? 'add' : 'remove' ) ]( 'show' );
+    }
+
     send( event: Event ): void {
 
         const warnings = this.options.onInput( this.textArea.value );
@@ -217,7 +222,12 @@ export default class ChatWidget {
         const answerEl = this.getNextMessageElement( this.options.agentName );
         answerEl.style.backgroundColor = 'unset';
 
-        this.options.answer( { message, answerEl, history: this.history } ).then( ( answer: string | null ) => {
+        this.options.answer( {
+            message,
+            answerEl,
+            history: this.history,
+            setLoading: this.setLoading.bind( this )
+        } ).then( ( answer: string | null ) => {
             answerEl.style.removeProperty( 'background-color' );
             if ( answer !== null ) {
                 this.addMessage( answer, this.options.agentName, answerEl );
