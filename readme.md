@@ -6,13 +6,15 @@ No Brainer Chat Widget is a lightweight and customizable chat widget npm library
 
 ## Demo
 
+[Demo](https://moh-snoussi.github.io/simple-chat-widget/)
+
 ## Installation
 
 ### CDN
 
 ```html
 <script type="module">
-	import ChatWidget from "./../dist/main.mjs";
+	import ChatWidget from "simple-chat-widget";
 	ChatWidget.create();
 </script>
 ```
@@ -20,11 +22,11 @@ No Brainer Chat Widget is a lightweight and customizable chat widget npm library
 ### NPM
 
 ```bash
-npm install no-brainer-chat-widget
+npm install simple-chat-widget
 ```
 
 ```javascript
-import ChatWidget from "no-brainer-chat-widget";
+import ChatWidget from "simple-chat-widget";
 ChatWidget.create();
 ```
 

@@ -12,17 +12,23 @@
 	"repository": {
 		"url": "https://github.com/Moh-Snoussi/simple-chat-widget.git"
 	},
-	"types": "lib/TypeItGpt.d.ts",
-	"keywords": [],
+	"types": "src/ChatWidget.d.ts",
+	"keywords": [
+		"chat",
+		"widget",
+		"simple",
+		"easy to use chat widget",
+		"chat widget",
+		"javascript chat widget",
+		"typescript chat widget"
+	],
 	"author": "Mohamed Snoussi",
 	"license": "ISC",
 	"devDependencies": {
 		"html-loader": "^4.2.0",
 		"typescript": "5.0.2",
 		"webpack": "^5.76.2",
-		"webpack-cli": "^5.0.1"
-	},
-	"dependencies": {
+		"webpack-cli": "^5.0.1",
 		"ts-loader": "^9.4.2"
 	}
 }
