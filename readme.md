@@ -1,6 +1,6 @@
 # Simplest Chat Widget
 
-[![npm version](https://badge.fury.io/js/no-brainer-chat-widget.svg)](https://badge.fury.io/js/no-brainer-chat-widget)
+[![npm version](https://badge.fury.io/js/simplest-chat-widget.svg)](https://badge.fury.io/js/simplest-chat-widget)
 
 Simplest Chat Widget is a lightweight and customizable chat widget library that allows you to easily add a chat feature to your web application. It's designed to be simple and easy to use, with minimal setup required.
 
