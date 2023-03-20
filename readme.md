@@ -2,7 +2,7 @@
 
 [![npm version](https://badge.fury.io/js/no-brainer-chat-widget.svg)](https://badge.fury.io/js/no-brainer-chat-widget)
 
-No Brainer Chat Widget is a lightweight and customizable chat widget npm library that allows you to easily add a chat feature to your web application. It's designed to be simple and easy to use, with minimal setup required.
+Simplest Chat Widget is a lightweight and customizable chat widget library that allows you to easily add a chat feature to your web application. It's designed to be simple and easy to use, with minimal setup required.
 
 ## Demo
 
