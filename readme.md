@@ -14,7 +14,7 @@ No Brainer Chat Widget is a lightweight and customizable chat widget npm library
 
 ```html
 <script type="module">
-	import ChatWidget from "simplest-chat-widget";
+	import ChatWidget from "https://unpkg.com/simplest-chat-widget";
 	ChatWidget.create();
 </script>
 ```
