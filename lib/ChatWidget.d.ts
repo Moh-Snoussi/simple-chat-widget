@@ -1,5 +1,15 @@
+export interface historyItem {
+    body: string;
+    timestamp: Date;
+    author: string;
+}
+export interface MessageType {
+    message: string;
+    answerEl: HTMLElement;
+    history: Array<historyItem>;
+}
 export type ChatWidgetOptions = {
-    answer: (message: string) => Promise<string>;
+    answer: (message: MessageType) => Promise<string | null>;
     validate: (message: string) => Array<string>;
     onInput: (message: string) => Array<string>;
     agentName: string;
@@ -53,5 +63,11 @@ export default class ChatWidget {
     private addMessage;
     private isChatOpen;
     private setProperties;
+    /**
+     * Returns a message element
+     * if user is 'user' then the message will be on the right side
+     */
+    getNextMessageElement(user: 'user' | 'agent' | string): HTMLElement;
+    scroll(): void;
 }
 //# sourceMappingURL=ChatWidget.d.ts.map

@@ -1,13 +1,19 @@
 import chatTemplate from './chat-template.html';
 
-interface MessageHistory {
+export interface historyItem {
     body: string;
     timestamp: Date;
     author: string;
 }
 
+export interface MessageType {
+    message: string;
+    answerEl: HTMLElement;
+    history: Array<historyItem>;
+}
+
 export type ChatWidgetOptions = {
-    answer: ( message: string ) => Promise<string>;
+    answer: ( message: MessageType ) => Promise<string | null>;
     validate: ( message: string ) => Array<string>;
     onInput: ( message: string ) => Array<string>;
     agentName: string;
@@ -34,7 +40,7 @@ const defaultOptions: ChatWidgetOptions = {
      * This function is called when the user submits a message,
      * it should return a promise that resolves with the answer
      */
-    answer: ( message: string ) => new Promise( ( resolve ) =>
+    answer: ( message: MessageType ) => new Promise( ( resolve ) =>
         setTimeout( () => resolve( 'God does not play dice with the universe.' ), 3000 ) ),
 
     /**
@@ -105,7 +111,7 @@ export default class ChatWidget {
     private submitButton!: HTMLElement;
     private messageTemplate!: HTMLElement;
     private messageHistory!: HTMLElement;
-    private history: Array<MessageHistory> = [];
+    private history: Array<historyItem> = [];
     private textArea!: HTMLTextAreaElement;
     private chatOpener!: HTMLElement;
     private chatContainer!: HTMLElement;
@@ -208,8 +214,14 @@ export default class ChatWidget {
 
         this.addMessage( message, 'user' );
 
-        this.options.answer( message ).then( ( answer: string ) => {
-            this.addMessage( answer, this.options.agentName );
+        const answerEl = this.getNextMessageElement( this.options.agentName );
+        answerEl.style.backgroundColor = 'unset';
+
+        this.options.answer( { message, answerEl, history: this.history } ).then( ( answer: string | null ) => {
+            answerEl.style.removeProperty( 'background-color' );
+            if ( answer !== null ) {
+                this.addMessage( answer, this.options.agentName, answerEl );
+            }
             this.loader.classList.remove( 'show' );
             if ( !this.isChatOpen() ) {
                 this.chatOpener.classList.add( 'has-new-message' );
@@ -253,24 +265,29 @@ export default class ChatWidget {
         } );
     }
 
-    private addMessage( message: string, user: string ) {
+    private addMessage( message: string, user: string, messageEl: HTMLElement | null = null ): void {
+        if ( message.trim().length === 0 && ( messageEl && messageEl.innerHTML.trim().length === 0 ) ) {
+            throw new Error( 'Message cannot be empty' );
+        }
+
+        if ( messageEl && 'innerHTML' in messageEl ) {
+            if ( message.trim().length > 0 ) {
+                messageEl.innerHTML = message;
+            } else {
+                const message = messageEl.innerHTML;
+            }
+            const user = messageEl.classList.contains( 'message-out' ) ? 'user' : this.options.agentName;
+        } else {
+            const messageEl = this.getNextMessageElement( user );
+            messageEl.innerHTML = message;
+        }
         this.history.push( {
             body: message,
             timestamp: new Date(),
             author: user
         } );
 
-        const messageTemplate = this.messageTemplate.cloneNode( true ) as HTMLTemplateElement;
-        const messageBody = messageTemplate.content.querySelector( 'p' ) as HTMLElement;
-
-        if ( user === 'user' ) {
-            messageBody.classList.add( 'message-out' );
-        } else {
-            messageBody.classList.add( 'message-in' );
-        }
-        messageBody.innerHTML = message;
-        this.messageHistory.appendChild( messageTemplate.content );
-        this.chatScrollEl.scrollTop = this.chatScrollEl.scrollHeight;
+        this.scroll();
     }
 
     private isChatOpen(): boolean {
@@ -290,5 +307,27 @@ export default class ChatWidget {
         this.outerContainer.style.setProperty( '--no-brainer-font', styles.fontFamily );
         this.outerContainer.querySelector( 'img' )?.setAttribute( 'src', this.options.agentAvatarUrl );
         this.chatAgentNameEl.innerHTML = this.options.agentName;
+    }
+
+    /**
+     * Returns a message element
+     * if user is 'user' then the message will be on the right side
+     */
+    getNextMessageElement( user: 'user' | 'agent' | string ): HTMLElement {
+        const messageTemplate = this.messageTemplate.cloneNode( true ) as HTMLTemplateElement;
+        const messageBody = messageTemplate.content.querySelector( 'p' ) as HTMLElement;
+        if ( user === 'user' ) {
+            messageBody.classList.add( 'message-out' );
+            messageBody.classList.remove( 'message-in' );
+        } else {
+            messageBody.classList.add( 'message-in' );
+            messageBody.classList.remove( 'message-out' );
+        }
+
+        return this.messageHistory.appendChild( messageBody );
+    }
+
+    scroll() {
+        this.chatScrollEl.scrollTop = this.chatScrollEl.scrollHeight;
     }
 }
