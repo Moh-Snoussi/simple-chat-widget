@@ -314,8 +314,7 @@ export default class ChatWidget {
         this.outerContainer.style.setProperty( '--no-brainer-chat-textarea-color', styles.chatTextareaColor );
         this.outerContainer.style.setProperty( '--no-brainer-font', styles.fontFamily );
         this.outerContainer.querySelector( 'img' )?.setAttribute( 'src', this.options.agentAvatarUrl );
-        // uppercase first letter
-        this.options.agentName = this.options.agentName.charAt( 0 ).toUpperCase() + this.options.agentName.slice( 1 );
+        this.chatAgentNameEl.innerHTML = this.options.agentName.charAt( 0 ).toUpperCase() + this.options.agentName.slice( 1 );
     }
 
     /**
