@@ -2,7 +2,7 @@ import chatTemplate from './chat-template.html';
 
 export interface historyItem {
     content: string;
-    role: string;
+    role: 'user' | 'system' | 'assistant' | string;
 }
 
 export interface MessageType {
@@ -78,7 +78,7 @@ const defaultOptions: ChatWidgetOptions = {
     /**
      * This will be displayed on the chat header
      */
-    agentName: 'Support',
+    agentName: 'assistant',
 
     /**
      * This will be displayed as the avatar of the agent on the chat header
@@ -314,7 +314,8 @@ export default class ChatWidget {
         this.outerContainer.style.setProperty( '--no-brainer-chat-textarea-color', styles.chatTextareaColor );
         this.outerContainer.style.setProperty( '--no-brainer-font', styles.fontFamily );
         this.outerContainer.querySelector( 'img' )?.setAttribute( 'src', this.options.agentAvatarUrl );
-        this.chatAgentNameEl.innerHTML = this.options.agentName;
+        // uppercase first letter
+        this.options.agentName = this.options.agentName.charAt( 0 ).toUpperCase() + this.options.agentName.slice( 1 );
     }
 
     /**

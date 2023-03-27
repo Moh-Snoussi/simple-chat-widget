@@ -1,6 +1,6 @@
 export interface historyItem {
     content: string;
-    role: string;
+    role: 'user' | 'system' | 'assistant' | string;
 }
 export interface MessageType {
     message: string;
