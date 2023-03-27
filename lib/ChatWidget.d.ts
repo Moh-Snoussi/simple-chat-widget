@@ -1,7 +1,6 @@
 export interface historyItem {
-    body: string;
-    timestamp: Date;
-    author: string;
+    content: string;
+    role: string;
 }
 export interface MessageType {
     message: string;
