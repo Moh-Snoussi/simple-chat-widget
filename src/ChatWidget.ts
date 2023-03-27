@@ -1,9 +1,8 @@
 import chatTemplate from './chat-template.html';
 
 export interface historyItem {
-    body: string;
-    timestamp: Date;
-    author: string;
+    content: string;
+    role: string;
 }
 
 export interface MessageType {
@@ -229,7 +228,7 @@ export default class ChatWidget {
             setLoading: this.setLoading.bind( this )
         } ).then( ( answer: string | null ) => {
             answerEl.style.removeProperty( 'background-color' );
-            if ( answer !== null ) {
+            if ( answer !== undefined && answer !== null ) {
                 this.addMessage( answer, this.options.agentName, answerEl );
             }
             this.loader.classList.remove( 'show' );
@@ -292,9 +291,8 @@ export default class ChatWidget {
             messageEl.innerHTML = message;
         }
         this.history.push( {
-            body: message,
-            timestamp: new Date(),
-            author: user
+            content: message,
+            role: user
         } );
 
         this.scroll();
