@@ -108,7 +108,7 @@
 	import ChatWidget from "https://unpkg.com/simplest-chat-widget";
 
 	window.chatWidget = ChatWidget.create( {
-		answer: ( message ) => new Promise( ( resolve ) =>
+		answer: ( messageObj ) => new Promise( ( resolve ) =>
 			setTimeout( () => resolve( 'God does not play dice with the universe.' ), 3000 ) )
 	} );
 

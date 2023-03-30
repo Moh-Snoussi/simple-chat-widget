@@ -65,15 +65,7 @@ const defaultOptions: ChatWidgetOptions = {
      * if it returns an array of warnings, the warnings will be displayed to the user
      * @param message
      */
-    onInput: ( message: string ) => {
-        // check if message includes select, insert, update, delete, drop, truncate, alter, create, or grant
-        const sqlInjectionRegex = /select|insert|update|delete|drop|truncate|alter|create|grant/i;
-        const warnings = [];
-        if ( sqlInjectionRegex.test( message ) ) {
-            warnings.push( 'SQL Injection detected' );
-        }
-        return warnings;
-    },
+    onInput: ( message: string ) => [],
 
     /**
      * This will be displayed on the chat header
@@ -215,6 +207,13 @@ export default class ChatWidget {
         this.feedbackEl.innerHTML = '';
         this.feedbackEl.classList.remove( 'error' );
         this.feedbackEl.classList.remove( 'warning' );
+
+        // check if the last history item is a user message
+        // if it is, it will add an assistant message to the history from the last element
+
+        if ( this.history.length > 0 && this.history[ this.history.length - 1 ].role === 'user' ) {
+            this.addMessage(this.messageHistory.lastElementChild!.innerHTML, this.options.agentName );
+        }
 
         this.addMessage( message, 'user' );
 
